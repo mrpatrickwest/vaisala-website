@@ -26,9 +26,9 @@ title: Vaisala Observations
 
 <script>
     document.addEventListener("DOMContentLoaded", function ready(e) {
-    document.removeEventListener("DOMContentLoaded", ready, false)
+        document.removeEventListener("DOMContentLoaded", ready, false)
 
-    vaisalaFetch("http://localhost:8080/stations", "GET", null, displayStations, null)
+        vaisalaFetch("http://localhost:8080/stations", "GET", null, displayStations, null)
     })
 </script>
 

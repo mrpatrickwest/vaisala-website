@@ -2,4 +2,38 @@
 title: Vaisala | Add Sensor
 ---
 
-sensor
+<div class="form-div">
+    <form id="sensorForm" onsubmit="submitSensorForm();return false;" autocapitalize="none" autocomplete="on">
+        <fieldset class="form-fieldset" id="sensorFieldset">
+            <legend>Add Sensor</legend>
+            <div class="form-row">
+                <label class="hint-text" for="name">Name</label>
+                <input tabindex="1" class="form-field" type="text" id="name" name="name" required autofocus/>
+            </div>
+
+            <div class="form-row">
+                <label class="hint-text" style="margin-top:10px;" for="type">Type</label>
+                <input tabindex="2" class="form-field" type="text" id="type" name="type" required/>
+            </div>
+
+            <div class="form-row">
+                <label class="hint-text" style="margin-top:10px;" for="type">Station</label>
+                <select tabindex="3" class="form-field form-select" id="station" name="station" required size="1">
+                </select>
+            </div>
+
+            <div class="form-row">
+                <input tabindex="4" class="btn form-btn sensor-btn" type="submit" name="button-submit" id="button-submit" value="Add"/>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function ready(e) {
+        document.removeEventListener("DOMContentLoaded", ready, false)
+
+        vaisalaFetch("{{service}}/stations", "GET", null, addStationOptions, null, null)
+    })
+</script>
+

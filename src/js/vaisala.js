@@ -1,10 +1,10 @@
 function displayStations(json, data) {
     var stationElement = document.getElementById("stations");
     stationElement.innerHTML = "";
-    html = ""
+    var html = ""
     if(json) {
         for(var i = 0; i < json.length; i++) {
-            station = json[i]
+            var station = json[i]
             html += '<p class="vaisala-item"><input type="radio" name="station" onclick="stationSelected(' + station.id + ');" value="' + station.id + '">' + station.name + '</input></p>'
         }
     }
@@ -30,6 +30,53 @@ function displaySensors(json, data) {
 
 function sensorSelected(id) {
     vaisalaFetch(props.service + "/observations/sensor/" + id, "GET", null, displayObservations, null, null)
+}
+
+function addStationOptions(json, data) {
+    var selectElement = document.getElementById("station")
+    var html = ""
+    if(json && selectElement) {
+        for(var i = 0; i < json.length; i++) {
+            var station = json[i]
+            html += '<option value="' + station.id + '">' + station.name + ' - ' + station.location + '</option>'
+        }
+        selectElement.innerHTML = html
+    }
+}
+
+function submitSensorForm() {
+    const sensorForm = window.document.forms.sensorForm
+    if(typeof sensorForm.reportValidity == 'function') {
+        if(sensorForm.reportValidity() === false) {
+            return false;
+        }
+    }
+
+    sensorForm.elements.sensorFieldset.disabled = true;
+
+    const name = sensorForm.elements.name.value;
+    const type = sensorForm.elements.type.value;
+    const station = sensorForm.elements.station.value;
+    if(!name || !location || !station) {
+        return false;
+    } else {
+        const body = {name: name, type: type, station_id: station}
+        vaisalaFetch(props.service + "/sensor", "PUT", body, addSensorResponse, addSensorError, sensorForm);
+    }
+}
+
+function addSensorResponse(json, sensorForm) {
+    sensorForm.elements.sensorFieldset.disabled = false;
+    console.log(json);
+    if(json.success === true) {
+        window.location.replace(props.root_dir + "/index")
+    } else {
+        console.log("Failed to add the sensor");
+    }
+}
+
+function addSensorError(error, sensorForm) {
+    sensorForm.elements.sensorFieldset.disabled = false;
 }
 
 function displayObservations(json, data) {
@@ -63,7 +110,6 @@ function submitStationForm() {
         const body = {name: name, location: location}
         vaisalaFetch(props.service + "/station", "PUT", body, addStationResponse, addStationError, stationForm);
     }
-
 }
 
 function addStationResponse(json, stationForm) {
@@ -98,7 +144,7 @@ function vaisalaFetch(url, method, body, callback, errorCallback, callbackData) 
     }).then(function(json) {
         callback(json, callbackData)
     }).catch(function(error) {
-        console.error("failed to signin: " + error.message);
+        console.error("call to " + url + " failed: " + error.message);
         if(errorCallback) errorCallback(error, callbackData)
     });
 }
