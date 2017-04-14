@@ -1,25 +1,49 @@
 ---
-title: Vaisala | Add Station
+title: Vaisala | Add Sensor
 ---
 
 <div class="form-div">
-    <form id="stationForm" onsubmit="submitStationForm();return false;" autocapitalize="none" autocomplete="on">
-        <fieldset class="form-fieldset" id="stationFieldset">
-            <legend>Add Station</legend>
+    <form id="observationForm" onsubmit="submitObservationForm();return false;" autocapitalize="none" autocomplete="on">
+        <fieldset class="form-fieldset" id="observationFieldset">
+            <legend>Add Observation</legend>
             <div class="form-row">
-                <label class="hint-text" for="name">Name</label>
-                <input tabindex="1" class="form-field" type="text" id="name" name="name" required autofocus/>
+                <label class="hint-text" for="observed">When Observed</label>
+                <input tabindex="1" class="form-field" type="date" id="observed" name="observed" required autofocus/>
             </div>
 
             <div class="form-row">
-                <label class="hint-text" style="margin-top:10px;" for="location">Location</label>
-                <input tabindex="2" class="form-field" type="text" id="location" name="location" required/>
+                <label class="hint-text" for="received">When Received</label>
+                <input tabindex="2" class="form-field" type="date" id="received" name="received" required/>
             </div>
 
             <div class="form-row">
-                <input tabindex="3" class="btn form-btn station-btn" type="submit" name="button-submit" id="button-submit" value="Add"/>
+                <label class="hint-text" style="margin-top:10px;" for="value">Value</label>
+                <input tabindex="3" class="form-field" type="number" step="0.01" id="value" name="value" required/>
+            </div>
+
+            <div class="form-row">
+                <label class="hint-text" style="margin-top:10px;" for="quality">Quality Code</label>
+                <input tabindex="4" class="form-field" type="number" id="quality" name="quality" min="0" max="2" required/>
+            </div>
+
+            <div class="form-row">
+                <label class="hint-text" style="margin-top:10px;" for="type">Sensor</label>
+                <select tabindex="5" class="form-field form-select" id="sensor" name="sensor" required size="1">
+                </select>
+            </div>
+
+            <div class="form-row">
+                <input tabindex="6" class="btn form-btn observation-btn" type="submit" name="button-submit" id="button-submit" value="Add"/>
             </div>
         </fieldset>
     </form>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function ready(e) {
+        document.removeEventListener("DOMContentLoaded", ready, false)
+
+        vaisalaFetch("{{service}}/sensors", "GET", null, addSensorOptions, null, null)
+    })
+</script>
 

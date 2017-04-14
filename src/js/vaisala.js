@@ -44,6 +44,18 @@ function addStationOptions(json, data) {
     }
 }
 
+function addSensorOptions(json, data) {
+    var sensorElement = document.getElementById("sensor")
+    var html = ""
+    if(json && sensorElement) {
+        for(var i = 0; i < json.length; i++) {
+            var sensor = json[i]
+            html += '<option value="' + sensor.id + '">' + sensor.name + ' - ' + sensor.type + '</option>'
+        }
+        sensorElement.innerHTML = html
+    }
+}
+
 function submitSensorForm() {
     const sensorForm = window.document.forms.sensorForm
     if(typeof sensorForm.reportValidity == 'function') {
@@ -90,6 +102,43 @@ function displayObservations(json, data) {
         }
     }
     observationElement.innerHTML = html
+}
+
+function submitObservationForm() {
+    const observationForm = window.document.forms.observationForm
+    if(typeof observationForm.reportValidity == 'function') {
+        if(observationForm.reportValidity() === false) {
+            return false;
+        }
+    }
+
+    observationForm.elements.observationFieldset.disabled = true;
+
+    const observed = observationForm.elements.observed.value;
+    const received = observationForm.elements.received.value;
+    const value = observationForm.elements.value.value;
+    const sensor = observationForm.elements.sensor.value;
+    const quality = observationForm.elements.quality.value;
+    if(!observed || !received || !value || !sensor || !quality) {
+        return false;
+    } else {
+        const body = {observed_timestamp: observed, received_timestamp: received, value: value, sensor_id: sensor, quality_code: quality}
+        vaisalaFetch(props.service + "/observation", "PUT", body, addObservationResponse, addObservationError, observationForm);
+    }
+}
+
+function addObservationResponse(json, observationForm) {
+    observationForm.elements.observationFieldset.disabled = false;
+    console.log(json);
+    if(json.success === true) {
+        window.location.replace(props.root_dir + "/index")
+    } else {
+        console.log("Failed to add the observation");
+    }
+}
+
+function addObservationError(error, observationForm) {
+    observationForm.elements.observationFieldset.disabled = false;
 }
 
 function submitStationForm() {
