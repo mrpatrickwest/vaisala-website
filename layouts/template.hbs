@@ -1,0 +1,23 @@
+<html>
+    {{> header}}
+
+    <body>
+      <div class="main-content">
+          <header class="vaisala-header">
+            <div class="vaisala-logo">
+                <img class="vaisala-img" src="{{root_dir}}/images/vaisala.logo.png" alt="Vaisala logo"/>
+                <div class="vaisala-observations">
+                    Observations Discovery and Search
+                </div>
+            </div>
+          </header>
+          <div class="vaisala-separator">
+              <a class="vaisala-nav" href="{{root_dir}}/index">Home</a>
+          </div>
+          {{{contents}}}
+      </div>
+
+      {{> footer}}
+    </body>
+</html>
+

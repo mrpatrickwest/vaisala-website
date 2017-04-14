@@ -1,0 +1,126 @@
+body {
+  background: #f2f2f2;
+  font-family: Arial,helvetica,sans-serif;
+  color: #444;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+a {
+  color: #663399;
+  text-decoration: none;
+}
+
+.main-content {
+  background-color: #fff;
+  width: 80%;
+  margin: 50px auto 0 auto;
+}
+
+.vaisala-header {
+  padding: 10px;
+}
+
+.vaisala-logo {
+  width: 300px;
+  text-align: left;
+}
+
+.vaisala-img {
+  width: 300px;
+}
+
+.vaisala-observations {
+  text-align: right;
+  margin-top: 5px;
+  text-transform: uppercase;
+}
+
+.vaisala-separator {
+  width: 98%;
+  background-color: #ebebeb;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  margin: auto auto;
+  height: 25px;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+a.vaisala-nav {
+  color: #B95927;
+  cursor: pointer
+}
+
+.selection-content {
+  width: 98%;
+  margin: 10px auto;
+}
+
+.selection-row {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.selection-column {
+  flex: 1 1 300px;
+  height: 100px;
+  background-color: #51c8e8;
+  color: white;
+  padding: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.selection-title {
+  margin-top: 0;
+  float: left;
+  font-size: 14pt;
+  font-weight: 300;
+}
+
+.btn {
+  padding: 5px 10px 5px 10px;
+  background-color: #B95927;
+  border-radius: 10px;
+  cursor: pointer;
+  border-color: #B95927;
+  color: white;
+  font-weight: 700;
+}
+
+.add-btn {
+  float: right;
+}
+
+.vaisala-items {
+  clear: both;
+  border-top: 1px solid white;
+  padding-top: 5px;
+}
+
+.vaisala-item {
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+
+.form-div {
+  width: 500px;
+  margin: auto auto;
+  margin-top: 10px;
+}
+
+.form-row {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.hint-text {
+  margin-right: 5px;
+}
+
+input.form-field {
+  width: 200px;
+}

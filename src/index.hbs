@@ -1,0 +1,34 @@
+---
+title: Vaisala Observations
+---
+<div class="selection-content">
+  <div class="selection-row">
+  <div class="selection-column">
+    <div class="selection-title">Stations</div>
+    <a href="{{root_dir}}/addstation" class="btn add-btn">add</a>
+    <div class="vaisala-items" id="stations">
+    </div>
+  </div>
+  <div class="selection-column">
+    <div class="selection-title">Sensors</div>
+    <a href="{{root_dir}}/addsensor" class="btn add-btn">add</a>
+    <div class="vaisala-items" id="sensors">
+    </div>
+  </div>
+  <div class="selection-column">
+    <div class="selection-title">Observations</div>
+    <a href="{{root_dir}}/addobservation" class="btn add-btn">add</a>
+    <div class="vaisala-items" id="observations">
+    </div>
+  </div>
+  </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function ready(e) {
+    document.removeEventListener("DOMContentLoaded", ready, false)
+
+    vaisalaFetch("http://localhost:8080/stations", "GET", null, displayStations, null)
+    })
+</script>
+
